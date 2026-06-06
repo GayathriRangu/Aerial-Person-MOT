@@ -34,6 +34,25 @@ YOLO26n was selected because it is lightweight and suitable for edge deployment 
 
 BoT-SORT with global motion compensation was used for the final tracking configuration. Sparse optical-flow GMC helps account for drone ego-motion before association, reducing unstable identity matching when the whole frame shifts.
 
+## Fine-Tuning Performance
+
+The detector fine-tuning run completed 50 epochs with image size 1024, batch size 16, and AdamW optimization. By the final epoch, the detector reached approximately:
+
+| Metric | Value |
+|---|---:|
+| Precision | 0.901 |
+| Recall | 0.840 |
+| mAP50 | 0.912 |
+| mAP50-95 | 0.546 |
+
+The fine-tuning results and visual diagnostics are stored under:
+
+```text
+results/finetuning/person-finetunedYOLO26n/
+```
+
+Key figures include `results.png` for training curves, `BoxPR_curve.png` for the precision-recall curve, `confusion_matrix_normalized.png` for class-level behavior, and `val_batch0_pred.jpg` for qualitative validation predictions. These results support the choice to adapt a lightweight detector to the aerial-person domain instead of using a generic pretrained model directly.
+
 ## Results
 
 | Experiment | Detector | Tracker | Key setting | MOTA | IDF1 | Precision | Recall | IDSW | FPS |
