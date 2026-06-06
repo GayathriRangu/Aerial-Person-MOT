@@ -1,0 +1,28 @@
+# Dataset
+data/
+
+# Generated experiment outputs
+outputs/
+results/*/videos/
+results/*/tracker_outputs/
+results/detection-only/
+results/finetuning/person-ft-detectonly/
+deliverables/*youtube.mp4
+
+# Large training artifacts. Keep small CSV summaries separately if needed.
+results/runs/
+*.pt
+!weights/
+!weights/aerial_guardian_yolo26n_best.pt
+
+# Python
+__pycache__/
+*.pyc
+
+# VS Code
+.vscode/
+
+# Environments and package caches
+aerial_env/
+offline_pkgs/
+offline_pkg/

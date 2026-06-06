@@ -1,0 +1,43 @@
+<mxfile host="app.diagrams.net" modified="2026-06-07T00:00:00.000Z" agent="Codex" version="24.7.17" type="device">
+  <diagram id="aerial-guardian-pipeline" name="Aerial Guardian Architecture">
+    <mxGraphModel dx="1434" dy="748" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="760" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" value="Aerial Guardian MOT Pipeline" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=28;fontStyle=1;fontColor=#0B2545;" vertex="1" parent="1">
+          <mxGeometry x="60" y="30" width="600" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="subtitle" value="Fine-tuned YOLO26n + BoT-SORT + Sparse Optical-Flow Global Motion Compensation" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=15;fontColor=#555555;" vertex="1" parent="1">
+          <mxGeometry x="60" y="75" width="760" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="input" value="&lt;b&gt;VisDrone MOT Frames&lt;/b&gt;&lt;br&gt;UAV image sequence&lt;br&gt;Validation videos for evaluation" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;fillColor=#E8EEF5;strokeColor=#8BA4BC;strokeWidth=2;fontSize=14;fontColor=#0B2545;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="60" y="180" width="210" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="detector" value="&lt;b&gt;YOLO26n Detector&lt;/b&gt;&lt;br&gt;Fine-tuned on VisDrone train&lt;br&gt;Person/pedestrian merged class&lt;br&gt;imgsz 1280 inference" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;fillColor=#F4F6F9;strokeColor=#8BA4BC;strokeWidth=2;fontSize=14;fontColor=#0B2545;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="340" y="170" width="230" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="detections" value="&lt;b&gt;Filtered Detections&lt;/b&gt;&lt;br&gt;person class only&lt;br&gt;confidence threshold 0.40&lt;br&gt;small-object boxes" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;fillColor=#FFF4D6;strokeColor=#C7A94E;strokeWidth=2;fontSize=14;fontColor=#0B2545;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="640" y="170" width="220" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="tracker" value="&lt;b&gt;BoT-SORT + GMC&lt;/b&gt;&lt;br&gt;Sparse optical-flow camera motion&lt;br&gt;Track association + buffer&lt;br&gt;ReID disabled for lightweight run" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;fillColor=#EAF4EC;strokeColor=#78A983;strokeWidth=2;fontSize=14;fontColor=#0B2545;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="930" y="160" width="250" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="outputs" value="&lt;b&gt;Final Outputs&lt;/b&gt;&lt;br&gt;MP4 with boxes, IDs, tails&lt;br&gt;MOT-format tracker text&lt;br&gt;FPS + evaluation metrics" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;fillColor=#EEF2FF;strokeColor=#8491C7;strokeWidth=2;fontSize=14;fontColor=#0B2545;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="1240" y="170" width="230" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="train" value="&lt;b&gt;Training Data Preparation&lt;/b&gt;&lt;br&gt;VisDrone2019-MOT train&lt;br&gt;24,201 images, 56 sequences&lt;br&gt;MOT annotations converted to YOLO labels" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;fillColor=#FFFFFF;strokeColor=#B7C3CF;strokeWidth=2;fontSize=13;fontColor=#333333;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="340" y="420" width="330" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="eval" value="&lt;b&gt;Evaluation&lt;/b&gt;&lt;br&gt;MOTA 0.283, IDF1 0.388&lt;br&gt;Precision 0.719, Recall 0.482&lt;br&gt;IDSW 553, FPS 40.68" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;fillColor=#FFFFFF;strokeColor=#B7C3CF;strokeWidth=2;fontSize=13;fontColor=#333333;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="930" y="420" width="330" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="edge1" value="" style="endArrow=block;html=1;rounded=0;strokeWidth=3;strokeColor=#1F4D78;" edge="1" parent="1" source="input" target="detector"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="edge2" value="" style="endArrow=block;html=1;rounded=0;strokeWidth=3;strokeColor=#1F4D78;" edge="1" parent="1" source="detector" target="detections"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="edge3" value="" style="endArrow=block;html=1;rounded=0;strokeWidth=3;strokeColor=#1F4D78;" edge="1" parent="1" source="detections" target="tracker"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="edge4" value="" style="endArrow=block;html=1;rounded=0;strokeWidth=3;strokeColor=#1F4D78;" edge="1" parent="1" source="tracker" target="outputs"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="edge5" value="fine-tuning" style="endArrow=block;html=1;rounded=0;strokeWidth=2;strokeColor=#64748B;fontSize=12;fontColor=#334155;" edge="1" parent="1" source="train" target="detector"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="edge6" value="metrics" style="endArrow=block;html=1;rounded=0;strokeWidth=2;strokeColor=#64748B;fontSize=12;fontColor=#334155;" edge="1" parent="1" source="outputs" target="eval"><mxGeometry relative="1" as="geometry" /></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
