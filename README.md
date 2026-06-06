@@ -105,7 +105,7 @@ The videos contain bounding boxes, track IDs, and short trajectory tails. The tr
 
 YouTube link: [Aerial Person Detection and Tracking from Drone Footage](https://youtu.be/mpWsv7NLktM)
 
-The recommended video artifact for review is the full watermarked validation compilation:
+The following video is the full validation compilation:
 
 ```text
 deliverables/baseline_vs_final_all_validation_youtube.mp4
