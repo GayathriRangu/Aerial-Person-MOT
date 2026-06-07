@@ -1,8 +1,8 @@
 # Aerial Person MOT
 
-Lightweight person detection and multi-object tracking from moving drone footage using the VisDrone2019 MOT dataset.
+Lightweight person detection and multi-object tracking (MOT) from moving drone footage using the VisDrone2019 MOT dataset.
 
-This repository was prepared for the **Aerial Guardian** assignment. The goal is to detect and track persons from UAV imagery while balancing small-object accuracy, ID stability under drone ego-motion, model size, and runtime speed.
+The goal is to detect and track persons from UAV imagery while balancing small-object accuracy, ID stability under drone ego-motion, model size, and runtime speed.
 
 ## Final Configuration
 
@@ -10,7 +10,7 @@ This repository was prepared for the **Aerial Guardian** assignment. The goal is
 |---|---|
 | Detector | Fine-tuned YOLO26n |
 | Tracker | BoT-SORT with global motion compensation |
-| Target classes | VisDrone `pedestrian` and `person`, merged into one `person` class |
+| Target classes | VisDrone `pedestrian` and `people`, merged into one `person` class |
 | Training image size | 1024 |
 | Inference image size | 1280 |
 | Confidence threshold | 0.40 |
