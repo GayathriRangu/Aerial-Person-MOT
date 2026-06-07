@@ -1,8 +1,8 @@
-# Aerial Guardian MOT
+# Aerial Person MOT
 
-Lightweight person detection and multi-object tracking from moving drone footage using the VisDrone2019 MOT dataset.
+Lightweight person detection and multi-object tracking (MOT) from moving drone footage using the VisDrone2019 MOT dataset.
 
-This repository was prepared for the **Aerial Guardian** assignment. The goal is to detect and track persons from UAV imagery while balancing small-object accuracy, ID stability under drone ego-motion, model size, and runtime speed.
+The goal is to detect and track persons from UAV imagery while balancing small-object accuracy, ID stability under drone ego-motion, model size, and runtime speed.
 
 ## Final Configuration
 
@@ -10,7 +10,7 @@ This repository was prepared for the **Aerial Guardian** assignment. The goal is
 |---|---|
 | Detector | Fine-tuned YOLO26n |
 | Tracker | BoT-SORT with global motion compensation |
-| Target classes | VisDrone `pedestrian` and `person`, merged into one `person` class |
+| Target classes | VisDrone `pedestrian` and `people`, merged into one `person` class |
 | Training image size | 1024 |
 | Inference image size | 1280 |
 | Confidence threshold | 0.40 |
@@ -28,7 +28,7 @@ E05_bottrack_conf40_person_ft_gmc
 
 Drone imagery makes people appear very small, and camera motion makes tracking harder because the whole frame shifts between consecutive images. I used a lightweight YOLO26n detector because it stays far below the 300 MB model-size budget and is suitable for later edge deployment. To adapt it to the aerial domain, I fine-tuned it on the VisDrone2019-MOT train split instead of using only generic pretrained weights.
 
-The training split contained **24,201 images across 56 video sequences**. Its original MOT annotations are frame-level tracking labels, not YOLO detector labels, so I converted the `pedestrian` and `person` boxes into YOLO text labels using `scripts/convert_visdronemot_to_yolo.py`. This conversion was needed because YOLO training expects one label file per image with normalized center coordinates and box dimensions.
+The training split contained **24,201 images across 56 video sequences**. Its original MOT annotations are frame-level tracking labels, not YOLO detector labels, so I converted the `pedestrian` and `people` boxes into YOLO text labels using `scripts/convert_visdronemot_to_yolo.py`. This conversion was needed because YOLO training expects one label file per image with normalized center coordinates and box dimensions.
 
 For tracking, I evaluated ByteTrack and BoT-SORT variants. The final configuration uses BoT-SORT with sparse optical-flow global motion compensation to reduce the effect of drone ego-motion during association. I also tuned the confidence threshold and tracker settings to reduce noisy detections and unstable tracks.
 
@@ -50,10 +50,10 @@ The full Word report includes the pipeline diagram, fine-tuning curves, PR curve
 
 ```text
 configs/                    Dataset and tracker configuration files
-docs/                       Summary report, architecture diagram, checklist
+docs/                       Architecture diagram
 scripts/                    Conversion, training, tracking, evaluation, video scripts
 results/                    Evaluation CSVs
-deliverables/               Final comparison video for submission
+deliverables/               Final comparison video
 weights/                    Lightweight final checkpoint
 outputs/                    New generated videos and tracker outputs, not intended for Git
 results/<experiment>/       Restored experiment videos, tracker outputs, and CSVs
@@ -133,7 +133,7 @@ Fine-tune the detector:
 python scripts/train_visdrone_person.py
 ```
 
-The fine-tuning setup maps VisDrone `pedestrian` and `person` categories into one `person` class and trains at image size 1024 with augmentation for small-object robustness. The training dataset is not committed to this repository because of its size; it was prepared in a separate working dataset folder.
+The fine-tuning setup maps VisDrone `pedestrian` and `people` categories into one `person` class and trains at image size 1024 with augmentation for small-object robustness. The training dataset is not committed to this repository because of its size; it was prepared in a separate working dataset folder.
 
 ## Evaluate
 
@@ -143,7 +143,7 @@ Run MOT evaluation:
 python scripts/evaluate_mot.py
 ```
 
-Metrics reported include MOTA, MOTP, IDF1, precision, recall, ID switches, false positives, and false negatives. Evaluation keeps only the VisDrone `pedestrian` and `person` categories.
+Metrics reported include MOTA, MOTP, IDF1, precision, recall, ID switches, false positives, and false negatives. Evaluation keeps only the VisDrone `pedestrian` and `people` categories.
 
 ## Edge Deployment Notes
 
