@@ -1,4 +1,4 @@
-# Aerial Guardian MOT
+# Aerial Person MOT
 
 Lightweight person detection and multi-object tracking from moving drone footage using the VisDrone2019 MOT dataset.
 
