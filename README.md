@@ -133,7 +133,7 @@ Fine-tune the detector:
 python scripts/train_visdrone_person.py
 ```
 
-The fine-tuning setup maps VisDrone `pedestrian` and `people` categories into one `person` class and trains at image size 1024 with augmentation for small-object robustness. The training dataset is not committed to this repository because of its size; it was prepared in a separate working dataset folder.
+The fine-tuning setup maps VisDrone `pedestrian` and `people` categories into one `person` class and trains at image size 1024 to better adapt the detector to small aerial targets, crowded scenes, and drone-viewpoint appearance changes. The training dataset is not committed to this repository because of its size; it was prepared in a separate working dataset folder.
 
 ## Evaluate
 
